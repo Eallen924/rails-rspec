@@ -39,6 +39,8 @@ class Admin::PostsController < ApplicationController
   end
 
   def destroy
+    p params
+    puts "*" * 80
     post = Post.find(params[:destroy])
     post.destroy
 

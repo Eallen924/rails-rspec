@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'Admin' do
   context "on admin homepage" do
     it "can see a list of recent posts" do 
+      
       admin_auth("geek", "jock")
       Post.create(title: "test1", content: "test1")
       Post.create(title: "test2", content: "test2")
@@ -21,7 +22,15 @@ describe 'Admin' do
       page.should have_content "Edit Test1"
     end
 
-    it "can delete a post by clicking the delete link next to a post"
+    it "can delete a post by clicking the delete link next to a post" do
+      admin_auth("geek", "jock")
+      Post.create(title: "test1", content: "test1")
+      visit admin_posts_url
+      puts page.body
+      click_link "Delete"
+      page.should_not have_content "Test1"
+    end
+
     it "can create a new post and view it" do
        visit new_admin_post_url
 
